@@ -424,8 +424,30 @@ void DefaultPrintTo(IsNotContainer /* dummy */,
       // even using reinterpret_cast, as earlier versions of gcc
       // (e.g. 3.4.5) cannot compile the cast when p is a function
       // pointer.  Casting to UInt64 first solves the problem.
-      *os << reinterpret_cast<const void*>(
+
+      // Patch against warning on MSVC : see https://stackoverflow.com/questions/8699510/error-in-gtest-printers-h-while-intergrating-gtest-to-my-project
+      //
+      #ifdef _MSC_VER
+        // Check windows target, 32 or 64 bits
+        #if _WIN32 || _WIN64
+          #if _WIN64
+            #define ENVIRONMENT64
+          #else
+            #define ENVIRONMENT32
+          #endif
+        #endif
+        #ifdef ENVIRONMENT32
+          *os << reinterpret_cast<const void*>(
+            static_cast<internal::UInt64>(
+              reinterpret_cast<internal::UInt32>(p)));
+        #else
+          *os << reinterpret_cast<const void*>(
+            reinterpret_cast<internal::UInt64>(p));
+        #endif
+      #else // / _MSC_VER
+        *os << reinterpret_cast<const void*>(
           reinterpret_cast<internal::UInt64>(p));
+      #endif
     }
   }
 }
