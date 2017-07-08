@@ -3,6 +3,9 @@
 Do not use this repo alone, use the master repo
 https://github.com/ivsgroup/hunter_master
 
+Patch was posted upstream. See Status here:
+https://github.com/google/googletest/pull/1145
+
 ## Changes for Hunter ##
 
 This branch of GoogleTest is supposed to be added to client projects with the [hunter package manager](https://github.com/ruslo/hunter).
