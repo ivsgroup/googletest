@@ -1,3 +1,8 @@
+# Changes for IVS
+
+Do not use this repo alone, use the master repo
+https://github.com/ivsgroup/hunter_master
+
 ## Changes for Hunter ##
 
 This branch of GoogleTest is supposed to be added to client projects with the [hunter package manager](https://github.com/ruslo/hunter).
